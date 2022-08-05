@@ -1,5 +1,37 @@
-a {
-  text-align: 1;
-  color: red; }
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.6rem; }
+
+.note {
+  height: auto;
+  width: 20%;
+  background-color: grey;
+  border-radius: 20px; }
+
+.note__footer {
+  display: flex; }
+
+.note__title {
+  display: flex;
+  justify-content: space-between; }
+
+.note__date, .note__favorit, .note__edit {
+  margin: 5px;
+  justify-content: space-between; }
+
+.note__text {
+  padding: 5px; }
+
+.note {
+  margin: 15px; }
+
+.settings {
+  text-align: right; }
+
+h1 {
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
