@@ -25,24 +25,37 @@ html {
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
+  background-color:#e5fb6a;
 }
 body {
    font-size: 1.6rem;
+   margin-right: 3rem;
    
 }
 .work-area {
-   display: flex;
-   // flex-direction: column;
-   align-items: flex-start;
-   flex-wrap: wrap;
+   // display: flex;
+   // // flex-direction: column;
+   // align-items: flex-start;
+   // flex-wrap: wrap;
+//    display: grid;
+//   gap: 10px;
+//   grid-template-columns: 1fr [box-start] 1fr 1fr [box-end] 1fr;
+//   grid-template-rows: masonry;
+
+column-count: 3;
+    column-gap: 1em;
    
 }
 
 .note {
-   
-   width: 20%;
+   // height: auto;
+   // width: 20%;
+   background-color: #eee;
+    display: inline-block;
+    width: 100%;
    background-color:--bs-info;
    border-radius: 20px;
+   
    // max-height: 300px;
 }
 .note__footer {
@@ -53,9 +66,11 @@ body {
 .note__title{
    display: flex;
    justify-content: space-between;
-   
 }
+.note__btns {
+   display: flex;
 
+}
 .note__date, .note__favorit, .note__edit{
    margin: 5px;
    justify-content: space-between;
@@ -70,7 +85,7 @@ body {
 }
 .note__delete{
    background-image: url('/img/cross-circle.svg'); 
-   float:left;
+   // float:left;
    
 
 }
@@ -101,7 +116,8 @@ h2{
    padding-left: 1.4rem;
    padding-right: 0;
    word-break: break-word;
-   width: 32rem;
+    width: 95%;
+   margin-bottom: 0px;
    
    
 }
