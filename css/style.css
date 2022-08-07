@@ -52,7 +52,7 @@ body {
 .note__btns {
   display: flex; }
 
-.note__date, .note__favorit, .note__edit {
+.note__date, .note__favorit, .note__saved, .note__notSaved {
   margin: 5px;
   justify-content: space-between; }
 
@@ -68,8 +68,14 @@ body {
 .note__favorit {
   background-image: url("/img/star.svg"); }
 
-.note__edit {
-  background-image: url("/img/edit.svg"); }
+.note__favorit--active {
+  background-image: url("/img/star-active.png"); }
+
+.note__saved {
+  background-image: url("/img/saved.png"); }
+
+.note__notSaved {
+  background-image: url("/img/notSaved.png"); }
 
 .note__text {
   padding: 0px 10px;
