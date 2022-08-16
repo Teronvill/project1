@@ -4,7 +4,9 @@ let elems = document.querySelectorAll('.note');
 for (let elem of elems) {
     elem.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
 }
-
+let btns=document.querySelectorAll('.setting__btn');
+console.log(btns[0]);
+btns[0].addEventListener('click', addNote);
 //Фон
 // let body=document.querySelector('html');
 // body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
@@ -27,7 +29,7 @@ function setRandColor(colorCount,gradNum,deg) {
         return getRandColor();
     else if (colorCount == 2)
         return typeGrad + getRandColor() + ',' + getRandColor() + ')';
-    else return typeGrad + getRandColor() + ',' + getRandColor() + ',' + getRandColor() + ')';
+    else return typeGrad + getRandColor() + ',' + getRandColor() +' '+getRandNum(50,60)+'%,' + getRandColor() + ')';
 
 }
 //Рандомное изменение цвета
@@ -105,6 +107,7 @@ function addNote(){
     
     newNote.classList.add('note');
     newNote.innerHTML=`<div class="note__title"><h2 class="note__title" contenteditable="true">Заголовок</h2><div class="note__delete img" ></div></div><div class="note__text" contenteditable="true">Текст</div><div class="note__footer"><div class="note__date">${currentDate()}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    newNote.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
     workArea.append(newNote);
 }
 
@@ -119,14 +122,17 @@ function currentDate() {
     return checkNum(noteDate.getDate()+'.'+checkNum(noteDate.getMonth()+1)+'.'+noteDate.getFullYear())
 
 }
-addNote();
+
 
 
 //Заметка на сайт-заметку
 //При изменении заметки и потери фокуса (блюре) загорается дискета, но при повторном блюре она
 //загорается даже если не изменять текст ---надо пофиксить
 //
-//
+//Может удалить радиальный градиент?
+// 
+// 
+// 
 // function editNote() {
 //     let currentText=this.parentElement.parentElement.previousSibling.previousSibling.innerHTML;
 //     let newText=prompt('Введите текст заметки', currentText)
