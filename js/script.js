@@ -108,13 +108,21 @@ function addNote(){
     let workArea=document.querySelector('.work-area');
     
     newNote.classList.add('note');
-    newNote.innerHTML=`<div class="note__title" '><h2 class="note__title" contenteditable="true">Заголовок</h2><div class="note__delete img" id='new' ></div></div><div class="note__text" contenteditable="true">Текст</div><div class="note__footer"><div class="note__date">${currentDate()}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    newNote.innerHTML=`<div class="note__title" '><h2 class="note__title" contenteditable="true">Заголовок</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">Текст</div><div class="note__footer"><div class="note__date">${currentDate()}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
     newNote.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
     workArea.append(newNote);
-    let newN=document.querySelector('#new');
-    console.log(newN);
-    newN.addEventListener('click',deleteNote);
-    newN.removeAttribute('id');
+    let del=newNote.querySelector('.note__delete');
+    del.addEventListener('click',deleteNote);
+    let noteTitle = newNote.querySelector('h2');
+    noteTitle.addEventListener('blur', notSaved(noteTitle.parentElement, noteTitle.textContent));
+    let noteText = newNote.querySelector('.note__text');
+    noteText.addEventListener('blur', notSaved(noteText, noteText.textContent));
+    let saveImg = newNote.querySelector('.note__saved');
+    saveImg.addEventListener('click', saveNote);
+    let favoritImg = newNote.querySelector('.note__favorit');
+    favoritImg.addEventListener('click', favorNote);
+
+
 }
 
 function currentDate() {
