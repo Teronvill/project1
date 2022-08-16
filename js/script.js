@@ -9,6 +9,11 @@ for (let elem of elems) {
 let btns=document.querySelectorAll('.setting__btn');
 
 btns[0].addEventListener('click', addNote);
+btns[1].addEventListener('click', ()=>{
+    for (let elem of elems) {
+        elem.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+    }
+});
 //Фон
 // let body=document.querySelector('html');
 // body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
@@ -121,7 +126,7 @@ function addNote(){
     saveImg.addEventListener('click', saveNote);
     let favoritImg = newNote.querySelector('.note__favorit');
     favoritImg.addEventListener('click', favorNote);
-
+    elems = document.querySelectorAll('.note');
 
 }
 
