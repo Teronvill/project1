@@ -97,9 +97,30 @@ function notSaved(el, text) {
         }
     };
 }
+
 function addNote(){
+    let newNote=document.createElement('div');
+
+    let workArea=document.querySelector('.work-area');
     
+    newNote.classList.add('note');
+    newNote.innerHTML=`<div class="note__title"><h2 class="note__title" contenteditable="true">Заголовок</h2><div class="note__delete img" ></div></div><div class="note__text" contenteditable="true">Текст</div><div class="note__footer"><div class="note__date">${currentDate()}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    workArea.append(newNote);
 }
+
+function currentDate() {
+    function checkNum(num){
+        if (num<10)
+        return '0'+num;
+        else return num;
+    }
+    let noteDate=new Date();
+    let month=noteDate.getMonth();
+    return checkNum(noteDate.getDate()+'.'+checkNum(noteDate.getMonth()+1)+'.'+noteDate.getFullYear())
+
+}
+addNote();
+
 
 //Заметка на сайт-заметку
 //При изменении заметки и потери фокуса (блюре) загорается дискета, но при повторном блюре она
