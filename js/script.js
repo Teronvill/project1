@@ -1,12 +1,36 @@
-"use strict"
-
-
+"use strict";
 
 let elems = document.querySelectorAll('.note');
 for (let elem of elems) {
-    elem.style.background = getRandColor();
+    elem.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
 }
-//рандомное изменение цвета
+
+//Фон
+// let body=document.querySelector('html');
+// body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+
+
+//Рандомное число
+function getRandNum(min, max){
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+//Возврат цвета либо градиента
+function setRandColor(colorCount,gradNum,deg) {
+    let typeGrad;
+    if (gradNum==1){
+        typeGrad='linear-gradient('+deg+'deg,';
+    }
+    else typeGrad='radial-gradient(';
+    
+    
+    if (colorCount == 1)
+        return getRandColor();
+    else if (colorCount == 2)
+        return typeGrad + getRandColor() + ',' + getRandColor() + ')';
+    else return typeGrad + getRandColor() + ',' + getRandColor() + ',' + getRandColor() + ')';
+
+}
+//Рандомное изменение цвета
 function getRandColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -17,7 +41,7 @@ function getRandColor() {
 }
 
 
-//удаление заметки
+//Удаление заметки
 let deleteImgs = document.querySelectorAll('.note__delete');
 for (let el of deleteImgs) {
     el.addEventListener('click', deleteNote);
@@ -46,30 +70,42 @@ let saveImgs = document.querySelectorAll('.note__saved');
 for (let saved of saveImgs) {
     saved.addEventListener('click', saveNote);
 }
+
 function saveNote() {
     this.classList.remove('note__notSaved');
 }
-//Проверка на изменение
-let noteTitles=document.querySelectorAll('h2');
-let noteText=document.querySelectorAll('.note__text');
+//Проверка на изменение текста и заголовка
+let noteTitles = document.querySelectorAll('h2');
+let noteText = document.querySelectorAll('.note__text');
 
-for (let el of noteTitles){
-    el.addEventListener('blur', notSaved(el.parentElement))
+for (let el of noteTitles) {
+    el.addEventListener('blur', notSaved(el.parentElement, el.textContent));
 }
-for (let el of noteText){
-    el.addEventListener('blur', notSaved(el))  
+
+for (let el of noteText) {
+    el.addEventListener('blur', notSaved(el, el.textContent));
 }
-function notSaved(el){
-    return function() {
-    let icon=el.parentElement.querySelector('.note__saved');
-    if (icon.classList.contains('note__saved'))
-    {
-    icon.classList.add('note__notSaved');
-    }
-}}
 
+function notSaved(el, text) {
+    return function () {
+        if (this.textContent != text) {
+            let icon = el.parentElement.querySelector('.note__saved');
+            if (icon.classList.contains('note__saved')) {
+                icon.classList.add('note__notSaved');
+            }
+            
+        }
+    };
+}
+function addNote(){
+    
+}
 
-
+//Заметка на сайт-заметку
+//При изменении заметки и потери фокуса (блюре) загорается дискета, но при повторном блюре она
+//загорается даже если не изменять текст ---надо пофиксить
+//
+//
 // function editNote() {
 //     let currentText=this.parentElement.parentElement.previousSibling.previousSibling.innerHTML;
 //     let newText=prompt('Введите текст заметки', currentText)

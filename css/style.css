@@ -85,9 +85,6 @@ body {
   margin: 15px;
   background-color: #0dcaf0; }
 
-.settings {
-  text-align: right; }
-
 h1 {
   text-align: center; }
 
@@ -97,5 +94,17 @@ h2 {
   word-break: break-word;
   width: 95%;
   margin-bottom: 0px; }
+
+.settings {
+  display: flex;
+  justify-content: center; }
+
+.setting__btn {
+  border-radius: 5px;
+  height: 30px;
+  background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+  padding-top: 10px;
+  padding: 10px 5px 0px 5px;
+  vertical-align: middle; }
 
 /*# sourceMappingURL=style.css.map */
