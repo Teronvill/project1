@@ -2,41 +2,41 @@
 
 let elems = document.querySelectorAll('.note');
 for (let elem of elems) {
-    elem.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+    elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
 }
 
 //кнопки настроек
-let btns=document.querySelectorAll('.setting__btn');
+let btns = document.querySelectorAll('.setting__btn');
 
-btns[0].addEventListener('click', addNote);
-btns[1].addEventListener('click', ()=>{
+btns[0].addEventListener('click', () => {addNote();});
+btns[1].addEventListener('click', () => {
     for (let elem of elems) {
-        elem.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+        elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
     }
 });
+btns[5].addEventListener('click', saveNotes);
 //Фон
 // let body=document.querySelector('html');
 // body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
 
 
 //Рандомное число
-function getRandNum(min, max){
+function getRandNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 //Возврат цвета либо градиента
-function setRandColor(colorCount,gradNum,deg) {
+function setRandColor(colorCount, gradNum, deg) {
     let typeGrad;
-    if (gradNum==1){
-        typeGrad='linear-gradient('+deg+'deg,';
-    }
-    else typeGrad='radial-gradient(';
-    
-    
+    if (gradNum == 1) {
+        typeGrad = 'linear-gradient(' + deg + 'deg,';
+    } else typeGrad = 'radial-gradient(';
+
+
     if (colorCount == 1)
         return getRandColor();
     else if (colorCount == 2)
         return typeGrad + getRandColor() + ',' + getRandColor() + ')';
-    else return typeGrad + getRandColor() + ',' + getRandColor() +' '+getRandNum(50,60)+'%,' + getRandColor() + ')';
+    else return typeGrad + getRandColor() + ',' + getRandColor() + ' ' + getRandNum(50, 60) + '%,' + getRandColor() + ')';
 
 }
 //Рандомное изменение цвета
@@ -69,19 +69,22 @@ let favoritImgs = document.querySelectorAll('.note__favorit');
 for (let fav of favoritImgs) {
     fav.addEventListener('click', favorNote);
 }
+
 function favorNote() {
     this.classList.toggle('note__favorit--active');
 }
 
 
-//Сохранение заметки
+//Сохранение одной заметки
 let saveImgs = document.querySelectorAll('.note__saved');
 for (let saved of saveImgs) {
-    saved.addEventListener('click', saveNote);
+    saved.addEventListener('click', saveNotes);
 }
-
-function saveNote() {
-    this.classList.remove('note__notSaved');
+function cleanIcon(){
+    let saveImgs = document.querySelectorAll('.note__saved');
+    for (let saved of saveImgs) {
+        saved.classList.remove('note__notSaved');
+    }
 }
 //Проверка на изменение текста и заголовка
 let noteTitles = document.querySelectorAll('h2');
@@ -90,7 +93,6 @@ let noteText = document.querySelectorAll('.note__text');
 for (let el of noteTitles) {
     el.addEventListener('blur', notSaved(el.parentElement, el.textContent));
 }
-
 for (let el of noteText) {
     el.addEventListener('blur', notSaved(el, el.textContent));
 }
@@ -102,45 +104,121 @@ function notSaved(el, text) {
             if (icon.classList.contains('note__saved')) {
                 icon.classList.add('note__notSaved');
             }
-            
+
         }
     };
 }
 
-function addNote(){
-    let newNote=document.createElement('div');
-
-    let workArea=document.querySelector('.work-area');
-    
+// Добавить заметку
+function addNote(title='Заголовок',text = 'Введите текст заметки', date = currentDate(), favor = false, background) {
+    let newNote = document.createElement('div');
+    let workArea = document.querySelector('.work-area');
     newNote.classList.add('note');
-    newNote.innerHTML=`<div class="note__title" '><h2 class="note__title" contenteditable="true">Заголовок</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">Текст</div><div class="note__footer"><div class="note__date">${currentDate()}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
-    newNote.style.background = setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+    newNote.innerHTML = `<div class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    if (background){
+        newNote.style.background=background;
+     }
+     else {
+        newNote.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359)); 
+     }
     workArea.append(newNote);
-    let del=newNote.querySelector('.note__delete');
-    del.addEventListener('click',deleteNote);
+    let del = newNote.querySelector('.note__delete');
+    del.addEventListener('click', deleteNote);
     let noteTitle = newNote.querySelector('h2');
     noteTitle.addEventListener('blur', notSaved(noteTitle.parentElement, noteTitle.textContent));
     let noteText = newNote.querySelector('.note__text');
     noteText.addEventListener('blur', notSaved(noteText, noteText.textContent));
     let saveImg = newNote.querySelector('.note__saved');
-    saveImg.addEventListener('click', saveNote);
+    saveImg.addEventListener('click', saveNotes);
     let favoritImg = newNote.querySelector('.note__favorit');
+    if (favor) {
+        favoritImg.classList.add('note__favorit--active');
+    }
     favoritImg.addEventListener('click', favorNote);
     elems = document.querySelectorAll('.note');
 
 }
 
+//Текущая дата
 function currentDate() {
-    function checkNum(num){
-        if (num<10)
-        return '0'+num;
+    function checkNum(num) {
+        if (num < 10)
+            return '0' + num;
         else return num;
     }
-    let noteDate=new Date();
-    let month=noteDate.getMonth();
-    return checkNum(noteDate.getDate()+'.'+checkNum(noteDate.getMonth()+1)+'.'+noteDate.getFullYear())
+    let noteDate = new Date();
+    let month = noteDate.getMonth();
+    return checkNum(noteDate.getDate() + '.' + checkNum(noteDate.getMonth() + 1) + '.' + noteDate.getFullYear())
 
 }
+// Сохранить все заметки
+function saveNotes() {
+    cleanIcon();
+    let arr = [];
+    let notes = document.querySelectorAll('.note');
+    for (let note of notes) {
+        let obj = {};
+        obj.title = note.querySelector('h2').innerHTML;
+        obj.text = note.querySelector('.note__text').innerHTML;
+        obj.date = note.querySelector('.note__date').innerHTML;
+        obj.background=note.style.background;
+        if (note.querySelector('.note__favorit--active') != null)
+            obj.favor = true;
+        else obj.favor = false;
+        arr.push(obj);
+        
+    }
+    localStorage.setItem('arr', JSON.stringify(arr));
+
+}
+
+//Загрузка заметок из хранилища
+function loadNotes() {
+    let arr = JSON.parse(localStorage.getItem('arr'));
+    for (let i of arr){
+        addNote(i.title, i.text, i.date, i.favor,i.background);
+}
+}
+loadNotes();
+
+
+
+
+
+
+
+//Будущая палитра 
+// var ball = document.querySelector('.ball');
+
+// ball.onmousedown = function (e) { // 1. отследить нажатие
+//     ball.classList.toggle('vision');
+//     // подготовить к перемещению
+//     // 2. разместить на том же месте, но в абсолютных координатах
+//     ball.style.position = 'absolute';
+//     moveAt(e);
+//     // переместим в body, чтобы мяч был точно не внутри position:relative
+//     document.body.appendChild(ball);
+
+//     ball.style.zIndex = 1000; // показывать мяч над другими элементами
+
+//     // передвинуть мяч под координаты курсора
+//     // и сдвинуть на половину ширины/высоты для центрирования
+//     function moveAt(e) {
+//         ball.style.left = e.pageX - ball.offsetWidth / 2 + 'px';
+//         ball.style.top = e.pageY - ball.offsetHeight / 2 + 'px';
+//     }
+
+//     // 3, перемещать по экрану
+//     document.onmousemove = function (e) {
+//         moveAt(e);
+//     }
+
+//     // 4. отследить окончание переноса
+//     ball.onmouseup = function () {
+//         document.onmousemove = null;
+//         ball.onmouseup = null;
+//     }
+// }
 
 
 

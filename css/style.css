@@ -43,7 +43,7 @@ body {
 .note__footer {
   display: flex;
   justify-content: space-between;
-  padding: 0px 10px; }
+  padding: 0px 0px 0px 10px; }
 
 .note__title {
   display: flex;
@@ -78,7 +78,7 @@ body {
   background-image: url("/img/notSaved.png"); }
 
 .note__text {
-  padding: 0px 10px;
+  padding: 0px 14px;
   text-align: justify; }
 
 .note {
@@ -105,6 +105,15 @@ h2 {
   background: linear-gradient(#f5ae00, #f59500) #f5ae00;
   padding-top: 10px;
   padding: 10px 5px 0px 5px;
-  vertical-align: middle; }
+  vertical-align: middle;
+  margin: 2px; }
+
+.ball {
+  height: 150px;
+  width: 150px;
+  background-color: red; }
+
+.vision {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

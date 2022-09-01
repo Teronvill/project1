@@ -61,7 +61,7 @@ column-count: 3;
 .note__footer {
    display:flex;
    justify-content: space-between;
-   padding: 0px 10px;
+   padding: 0px 0px 0px 10px;
 }
 .note__title{
    display: flex;
@@ -103,7 +103,7 @@ column-count: 3;
    background-image: url('/img/notSaved.png'); 
 }
 .note__text {
-   padding: 0px 10px;
+   padding: 0px 14px;
    text-align:justify
 
 }
@@ -136,4 +136,15 @@ h2{
    padding-top: 10px;
    padding: 10px 5px 0px 5px;
    vertical-align: middle;
+   margin:2px;
+}
+
+.ball {
+   height: 150px;
+   width: 150px;
+   background-color:red;
+   
+}
+.vision{
+display: none;
 }
