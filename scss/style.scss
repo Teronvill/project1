@@ -84,23 +84,23 @@ column-count: 3;
    
 }
 .note__delete{
-   background-image: url('/img/cross-circle.svg'); 
+   background-image: url('img/cross-circle.svg'); 
    // float:left;
    
 
 }
 
 .note__favorit {
-   background-image: url('/img/star.svg'); 
+   background-image: url('img/star.svg'); 
 }
 .note__favorit--active {
-   background-image: url('/img/star-active.png'); 
+   background-image: url('img/star-active.png'); 
 }
 .note__saved {
-   background-image: url('/img/saved.png'); 
+   background-image: url('img/saved.png'); 
 }
 .note__notSaved {
-   background-image: url('/img/notSaved.png'); 
+   background-image: url('img/notSaved.png'); 
 }
 .note__text {
    padding: 0px 14px;
