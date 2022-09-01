@@ -175,7 +175,7 @@ function saveNotes() {
 //Загрузка заметок из хранилища
 function loadNotes() {
     let arr = JSON.parse(localStorage.getItem('arr'));
-    for (let i of arr){
+    for (let i in arr){
         addNote(i.title, i.text, i.date, i.favor,i.background);
 }
 }
