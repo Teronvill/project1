@@ -52,7 +52,7 @@ body {
 .note__btns {
   display: flex; }
 
-.note__date, .note__favorit, .note__saved, .note__notSaved {
+.note__date, .note__favorit, .note__saved, .note__notSaved, .note__pallet, .colorPicker {
   margin: 5px;
   justify-content: space-between; }
 
@@ -76,6 +76,9 @@ body {
 
 .note__notSaved {
   background-image: url("../img/notSaved.png"); }
+
+.note__pallet {
+  background-image: url("../img/palette.png"); }
 
 .note__text {
   padding: 0px 14px;
@@ -113,7 +116,7 @@ h2 {
   width: 150px;
   background-color: red; }
 
-.vision {
+.hide {
   display: none; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,10 +1,12 @@
 "use strict";
 
+
 let elems = document.querySelectorAll('.note');
 for (let elem of elems) {
     elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
 }
-
+let noteId=0;
+loadNotes();
 //кнопки настроек
 let btns = document.querySelectorAll('.setting__btn');
 
@@ -14,10 +16,31 @@ btns[1].addEventListener('click', () => {
         elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
     }
 });
+btns[2].addEventListener('click', changeColor);
 btns[5].addEventListener('click', saveNotes);
 //Фон
 // let body=document.querySelector('html');
 // body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
+
+//Изменение цвета элемента
+let colorPicker=document.querySelector('.colorPicker');
+function changeColor(el){
+ el.target.parentElement.parentElement.parentElement.parentElement.style.background=colorPicker.dataset.currentColor;
+}
+//Вызов палитры
+let pallets=document.querySelectorAll('.note__pallet');
+for (let el of pallets){
+    el.addEventListener('click', showPallet); 
+}
+//Показ панели
+function showPallet(){
+    this.previousElementSibling.classList.toggle('hide');
+}
+function update(color){
+    let note=color.id.parentElement;
+    note.style.background= color.toRGBAString();
+}
+
 
 
 //Рандомное число
@@ -110,11 +133,13 @@ function notSaved(el, text) {
 }
 
 // Добавить заметку
+
 function addNote(title='Заголовок',text = 'Введите текст заметки', date = currentDate(), favor = false, background) {
     let newNote = document.createElement('div');
     let workArea = document.querySelector('.work-area');
+    let curId='note'+noteId++;
     newNote.classList.add('note');
-    newNote.innerHTML = `<div class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    newNote.innerHTML = `<div id='${curId}' class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><button class='colorPicker hide'data-jscolor="{onChange: 'update(this,this.id=${curId})',onInput: 'update(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></button><div class="note__pallet img"></div><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
     if (background){
         newNote.style.background=background;
      }
@@ -130,7 +155,10 @@ function addNote(title='Заголовок',text = 'Введите текст з
     noteText.addEventListener('blur', notSaved(noteText, noteText.textContent));
     let saveImg = newNote.querySelector('.note__saved');
     saveImg.addEventListener('click', saveNotes);
+    let palletImg = newNote.querySelector('.note__pallet');
+    palletImg.addEventListener('click', showPallet);
     let favoritImg = newNote.querySelector('.note__favorit');
+    
     if (favor) {
         favoritImg.classList.add('note__favorit--active');
     }
@@ -163,7 +191,7 @@ function saveNotes() {
         obj.date = note.querySelector('.note__date').innerHTML;
         obj.background=note.style.background;
         if (note.querySelector('.note__favorit--active') != null)
-            obj.favor = true;
+            {obj.favor = true;}
         else obj.favor = false;
         arr.push(obj);
         
@@ -176,16 +204,9 @@ function saveNotes() {
 function loadNotes() {
     let arr = JSON.parse(localStorage.getItem('arr'));
     for (let i in arr){
-        addNote(i.title, i.text, i.date, i.favor,i.background);
+        addNote(arr[i].title, arr[i].text, arr[i].date, arr[i].favor,arr[i].background);
 }
 }
-loadNotes();
-
-
-
-
-
-
 
 //Будущая палитра 
 // var ball = document.querySelector('.ball');
