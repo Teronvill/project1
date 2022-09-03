@@ -28,10 +28,10 @@ function changeColor(el){
  el.target.parentElement.parentElement.parentElement.parentElement.style.background=colorPicker.dataset.currentColor;
 }
 //Вызов палитры
-let pallets=document.querySelectorAll('.note__pallet');
-for (let el of pallets){
-    el.addEventListener('click', showPallet); 
-}
+// let pallets=document.querySelectorAll('.note__pallet');
+// for (let el of pallets){
+//     el.addEventListener('click', showPallet); 
+// }
 //Показ панели
 function showPallet(){
     this.previousElementSibling.classList.toggle('hide');
@@ -40,7 +40,10 @@ function update(color){
     let note=color.id.parentElement;
     note.style.background= color.toRGBAString();
 }
-
+//Изменение цвета иконок при клике
+function changeIconCol (){
+    
+}
 
 
 //Рандомное число
@@ -139,7 +142,7 @@ function addNote(title='Заголовок',text = 'Введите текст з
     let workArea = document.querySelector('.work-area');
     let curId='note'+noteId++;
     newNote.classList.add('note');
-    newNote.innerHTML = `<div id='${curId}' class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><button class='colorPicker hide'data-jscolor="{onChange: 'update(this,this.id=${curId})',onInput: 'update(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></button><div class="note__pallet img"></div><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    newNote.innerHTML = `<div id='${curId}' class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><div class="note__pallet img colorPicker" data-jscolor="{onChange: 'update(this,this.id=${curId})',onInput: 'update(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></div><div class="note__text-color img"></div><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
     if (background){
         newNote.style.background=background;
      }
@@ -155,8 +158,8 @@ function addNote(title='Заголовок',text = 'Введите текст з
     noteText.addEventListener('blur', notSaved(noteText, noteText.textContent));
     let saveImg = newNote.querySelector('.note__saved');
     saveImg.addEventListener('click', saveNotes);
-    let palletImg = newNote.querySelector('.note__pallet');
-    palletImg.addEventListener('click', showPallet);
+    // let palletImg = newNote.querySelector('.note__pallet');
+    // palletImg.addEventListener('click', showPallet);
     let favoritImg = newNote.querySelector('.note__favorit');
     
     if (favor) {
