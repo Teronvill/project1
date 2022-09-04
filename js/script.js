@@ -2,6 +2,10 @@
 
 let noteId = 0;
 loadNotes();
+
+
+
+
 //кнопки настроек
 let btns = document.querySelectorAll('.setting__btn');
 btns[0].addEventListener('click', () => {
@@ -23,7 +27,6 @@ function changeColCount() {
     let area = document.querySelector('.work-area'),
         range = document.querySelector('#r1');
     area.style.columnCount = range.value;
-    console.log(range.value);
 }
 //Показ панели
 function showPallet() {
@@ -136,7 +139,9 @@ function notSaved(el, text) {
         }
     };
 }
-
+//костыль (хз почему при задании свойства column-сount в css я получаю оттуда пустую строку)
+if (document.querySelector('.work-area').style.columnCount=='')
+document.querySelector('.work-area').style.columnCount=3;
 // Добавить заметку
 function addNote(title = 'Заголовок', text = 'Введите текст заметки', date = currentDate(), favor = false, background, color) {
     let newNote = document.createElement('div');
@@ -191,7 +196,7 @@ function saveNotes() {
     settings.background = document.querySelector('html').style.backgroundColor;
     settings.title = document.querySelector('h1').innerHTML;
     settings.font = document.querySelector('html').style.color;
-    console.log(settings);
+    settings.colCount = document.querySelector('.work-area').style.columnCount;
     arr.push(settings);
     for (let note of notes) {
         let obj = {};
@@ -213,13 +218,13 @@ function saveNotes() {
 //Загрузка заметок из хранилища
 function loadNotes() {
     let arr = JSON.parse(localStorage.getItem('arr'));
-    console.log(arr);
     for (let i in arr) {
         if (i == 0) {
             let html = document.querySelector('html');
             html.style.backgroundColor = arr[i].background;
             html.style.color = arr[i].font;
             document.querySelector('h1').innerHTML = arr[i].title;
+            document.querySelector('.work-area').style.columnCount=arr[i].colCount;
             continue
         };
         addNote(arr[i].title, arr[i].text, arr[i].date, arr[i].favor, arr[i].background, arr[i].color);

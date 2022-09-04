@@ -41,27 +41,21 @@ body {
 //   gap: 10px;
 //   grid-template-columns: 1fr [box-start] 1fr 1fr [box-end] 1fr;
 //   grid-template-rows: masonry;
-
-column-count: 3;
-    column-gap: 2em;
+column-gap: 2em;
    
 }
 #r1 {
    position: absolute;
    top:5rem;
    left:-2.5rem;
-
 }
 .note {
-   // height: auto;
-   // width: 20%;
    background-color: #eee;
    display: inline-block;
    width: 100%;
    background-color:--bs-info;
    border-radius: 20px;
    margin: 10px;  
-   // max-height: 300px;
 }
 .note__footer {
    display:flex;
