@@ -31,14 +31,20 @@ body {
 
 .work-area {
   column-count: 3;
-  column-gap: 1em; }
+  column-gap: 2em; }
+
+#r1 {
+  position: absolute;
+  top: 5rem;
+  left: -2.5rem; }
 
 .note {
   background-color: #eee;
   display: inline-block;
   width: 100%;
   background-color: --bs-info;
-  border-radius: 20px; }
+  border-radius: 20px;
+  margin: 10px; }
 
 .note__footer {
   display: flex;
@@ -67,6 +73,13 @@ body {
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out; }
 
+@media (max-width: 1179px) {
+  .img {
+    width: 16px;
+    height: 16px; }
+
+  html {
+    font-size: 50%; } }
 .note__delete {
   background-image: url("../img/cross-circle.svg"); }
 
@@ -92,9 +105,8 @@ body {
   padding: 0px 14px;
   text-align: justify; }
 
-.note {
-  margin: 15px;
-  background-color: #0dcaf0; }
+.setting__count-column {
+  position: relative; }
 
 h1 {
   text-align: center; }
@@ -112,12 +124,12 @@ h2 {
 
 .setting__btn {
   border-radius: 5px;
-  height: 30px;
+  height: 15px;
   background: linear-gradient(#f5ae00, #f59500) #f5ae00;
-  padding-top: 10px;
-  padding: 10px 5px 0px 5px;
+  padding: 11px 5px 14px 5px;
   vertical-align: middle;
-  margin: 2px; }
+  margin: 2px;
+  display: inline; }
 
 .ball {
   height: 150px;

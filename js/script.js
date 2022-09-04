@@ -1,51 +1,51 @@
 "use strict";
 
-
-let elems = document.querySelectorAll('.note');
-for (let elem of elems) {
-    elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
-}
 let noteId=0;
 loadNotes();
 //кнопки настроек
 let btns = document.querySelectorAll('.setting__btn');
-
 btns[0].addEventListener('click', () => {addNote();});
 btns[1].addEventListener('click', () => {
     for (let elem of elems) {
         elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
     }
 });
-btns[2].addEventListener('click', changeColor);
+btns[3].addEventListener('click', ()=>{
+    document.querySelector('#r1').classList.toggle('hide');
+})
 btns[5].addEventListener('click', saveNotes);
-//Фон
-// let body=document.querySelector('html');
-// body.style.background=setRandColor(getRandNum(1,4),getRandNum(1,3),getRandNum(1,359));
 
-//Изменение цвета элемента
-let colorPicker=document.querySelector('.colorPicker');
-function changeColor(el){
- el.target.parentElement.parentElement.parentElement.parentElement.style.background=colorPicker.dataset.currentColor;
+//Изменить кол-во колонок
+function changeColCount(){ 
+    let area=document.querySelector('.work-area'),
+    range=document.querySelector('#r1');
+    area.style.columnCount=range.value;
+    console.log(range.value);
 }
-//Вызов палитры
-// let pallets=document.querySelectorAll('.note__pallet');
-// for (let el of pallets){
-//     el.addEventListener('click', showPallet); 
-// }
 //Показ панели
 function showPallet(){
     this.previousElementSibling.classList.toggle('hide');
 }
 function update(color){
-    let note=color.id.parentElement;
+    let note;
+    if (!color.id){
+        note=document.querySelector('html');
+    }else 
+    {
+        note=color.id.parentElement;
+    }
     note.style.background= color.toRGBAString();
 }
-//Изменение цвета иконок при клике
-function changeIconCol (){
-    
+function updateText(color){
+    let note;
+    if (!color.id){
+        note=document.querySelector('html');
+    }else 
+    {
+        note=color.id.parentElement;
+    }
+    note.style.color= color.toRGBAString();
 }
-
-
 //Рандомное число
 function getRandNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -75,7 +75,6 @@ function getRandColor() {
     return color;
 }
 
-
 //Удаление заметки
 let deleteImgs = document.querySelectorAll('.note__delete');
 for (let el of deleteImgs) {
@@ -99,7 +98,6 @@ for (let fav of favoritImgs) {
 function favorNote() {
     this.classList.toggle('note__favorit--active');
 }
-
 
 //Сохранение одной заметки
 let saveImgs = document.querySelectorAll('.note__saved');
@@ -136,18 +134,20 @@ function notSaved(el, text) {
 }
 
 // Добавить заметку
-
-function addNote(title='Заголовок',text = 'Введите текст заметки', date = currentDate(), favor = false, background) {
+function addNote(title='Заголовок',text = 'Введите текст заметки', date = currentDate(), favor = false, background, color) {
     let newNote = document.createElement('div');
     let workArea = document.querySelector('.work-area');
     let curId='note'+noteId++;
     newNote.classList.add('note');
-    newNote.innerHTML = `<div id='${curId}' class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><div class="note__pallet img colorPicker" data-jscolor="{onChange: 'update(this,this.id=${curId})',onInput: 'update(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></div><div class="note__text-color img"></div><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
+    newNote.innerHTML = `<div id='${curId}' class="note__title" '><h2 class="note__title" contenteditable="true">${title}</h2><div class="note__delete img"></div></div><div class="note__text" contenteditable="true">${text}</div><div class="note__footer"><div class="note__date">${date}</div><div class="note__btns"><div class="note__pallet img colorPicker" data-jscolor="{onChange: 'update(this,this.id=${curId})',onInput: 'update(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></div><div class="note__text-color img colorPicker" data-jscolor="{onChange: 'updateText(this,this.id=${curId})',onInput: 'updateText(this,this.id=${curId})',alpha:1, value:'CCFFAA'}"></div><div class="note__favorit img"></div><div class="note__saved img"></div></div></div>`;
     if (background){
         newNote.style.background=background;
      }
      else {
         newNote.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359)); 
+     }
+     if (color){
+        newNote.style.color=color;
      }
     workArea.append(newNote);
     let del = newNote.querySelector('.note__delete');
@@ -158,15 +158,13 @@ function addNote(title='Заголовок',text = 'Введите текст з
     noteText.addEventListener('blur', notSaved(noteText, noteText.textContent));
     let saveImg = newNote.querySelector('.note__saved');
     saveImg.addEventListener('click', saveNotes);
-    // let palletImg = newNote.querySelector('.note__pallet');
-    // palletImg.addEventListener('click', showPallet);
     let favoritImg = newNote.querySelector('.note__favorit');
     
     if (favor) {
         favoritImg.classList.add('note__favorit--active');
     }
     favoritImg.addEventListener('click', favorNote);
-    elems = document.querySelectorAll('.note');
+    let elems = document.querySelectorAll('.note');
 
 }
 
@@ -187,12 +185,19 @@ function saveNotes() {
     cleanIcon();
     let arr = [];
     let notes = document.querySelectorAll('.note');
+    let settings={};
+    settings.background=document.querySelector('html').style.backgroundColor;
+    settings.title=document.querySelector('h1').innerHTML;
+    settings.font=document.querySelector('html').style.color;
+    console.log(settings);
+    arr.push(settings);
     for (let note of notes) {
         let obj = {};
         obj.title = note.querySelector('h2').innerHTML;
         obj.text = note.querySelector('.note__text').innerHTML;
         obj.date = note.querySelector('.note__date').innerHTML;
         obj.background=note.style.background;
+        obj.color=note.style.color;
         if (note.querySelector('.note__favorit--active') != null)
             {obj.favor = true;}
         else obj.favor = false;
@@ -206,67 +211,23 @@ function saveNotes() {
 //Загрузка заметок из хранилища
 function loadNotes() {
     let arr = JSON.parse(localStorage.getItem('arr'));
+    console.log(arr);
     for (let i in arr){
-        addNote(arr[i].title, arr[i].text, arr[i].date, arr[i].favor,arr[i].background);
+        if (i==0) {
+            let html=document.querySelector('html');
+            html.style.backgroundColor=arr[i].background;
+            html.style.color=arr[i].font;
+            document.querySelector('h1').innerHTML=arr[i].title;
+    continue};
+        addNote(arr[i].title, arr[i].text, arr[i].date, arr[i].favor,arr[i].background,arr[i].color);
 }
 }
 
-//Будущая палитра 
-// var ball = document.querySelector('.ball');
+// Добавить Скрытие иконок заметки и появление либо активных, 
+// либо при нажатии на стрелочку выезжают все
 
-// ball.onmousedown = function (e) { // 1. отследить нажатие
-//     ball.classList.toggle('vision');
-//     // подготовить к перемещению
-//     // 2. разместить на том же месте, но в абсолютных координатах
-//     ball.style.position = 'absolute';
-//     moveAt(e);
-//     // переместим в body, чтобы мяч был точно не внутри position:relative
-//     document.body.appendChild(ball);
-
-//     ball.style.zIndex = 1000; // показывать мяч над другими элементами
-
-//     // передвинуть мяч под координаты курсора
-//     // и сдвинуть на половину ширины/высоты для центрирования
-//     function moveAt(e) {
-//         ball.style.left = e.pageX - ball.offsetWidth / 2 + 'px';
-//         ball.style.top = e.pageY - ball.offsetHeight / 2 + 'px';
-//     }
-
-//     // 3, перемещать по экрану
-//     document.onmousemove = function (e) {
-//         moveAt(e);
-//     }
-
-//     // 4. отследить окончание переноса
-//     ball.onmouseup = function () {
-//         document.onmousemove = null;
-//         ball.onmouseup = null;
-//     }
-// }
-
-
-
-//Заметка на сайт-заметку
-//При изменении заметки и потери фокуса (блюре) загорается дискета, но при повторном блюре она
-//загорается даже если не изменять текст ---надо пофиксить
-//
 //Может удалить радиальный градиент?
 // 
 // 
 // 
-// function editNote() {
-//     let currentText=this.parentElement.parentElement.previousSibling.previousSibling.innerHTML;
-//     let newText=prompt('Введите текст заметки', currentText)
-//     if (newText){
-//     this.parentElement.parentElement.previousSibling.previousSibling.innerHTML=newText}
-//     // this.parentElement.parentElement.previousSibling.innetHTML='asd';
-// }
-//Изменение заголовка заметки 
-// let titles=document.querySelectorAll('h2')
-// for (let edit of titles) {
-//     edit.addEventListener('dblclick', editTitles);
-// }
-// function editTitles(){
-//     let currentText=this.innerHTML;
-//     this.innerHTML=prompt('Введите заголовок заметки',currentText);
-// }
+
