@@ -62,6 +62,15 @@ column-gap: 2em;
    justify-content: space-between;
    padding: 0px 0px 0px 10px;
 }
+.setting__btn{
+   border-radius: 5px; 
+   height: 15px;
+   background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+   padding: 11px 5px 14px 5px;
+   vertical-align: middle;
+   margin:2px;
+   display: inline;
+}
 .note__title{
    display: flex;
    justify-content: space-between;
@@ -69,7 +78,7 @@ column-gap: 2em;
 .note__btns {
    display: flex;
 }
-.note__date, .note__favorit, .note__saved, .note__notSaved, .note__pallet, .colorPicker, .note__text-color{
+.note__date, .note__favorit, .note__saved, .note__notSaved, .note__pallet, .note__text-color{
    margin: 5px;
    justify-content: space-between;
 }
@@ -94,7 +103,17 @@ column-gap: 2em;
       font-size: 50%}
 }
 @media (max-width: 660px){
-   
+   .word-area {
+      column-count: 1;
+   }
+   body {
+      font-size:1.2rem ;
+      text-align: center;
+   }
+   .setting__btn{
+      padding-top: 5px;
+      height: 10px;
+   }
 }
 .note__delete{
    background-image: url('../img/cross-circle.svg'); 
@@ -141,15 +160,7 @@ h2{
    justify-content: center;
    
 }
-.setting__btn{
-   border-radius: 5px; 
-   height: 15px;
-   background: linear-gradient(#f5ae00, #f59500) #f5ae00;
-   padding: 11px 5px 14px 5px;
-   vertical-align: middle;
-   margin:2px;
-   display: inline;
-}
+
 
 .ball {
    height: 150px;

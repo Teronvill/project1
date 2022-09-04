@@ -139,9 +139,18 @@ function notSaved(el, text) {
         }
     };
 }
-//костыль (хз почему при задании свойства column-сount в css я получаю оттуда пустую строку)
-if (document.querySelector('.work-area').style.columnCount=='')
-document.querySelector('.work-area').style.columnCount=3;
+//Установка кол-ва колонок 
+function setColCount(){
+    if (window.screen.width<700)
+    {
+        btns[3].classList.add('hide');
+    }
+    else if (document.querySelector('.work-area').style.columnCount=='')
+    {document.querySelector('.work-area').style.columnCount=3}
+    else document.querySelector('.work-area').style.columnCount=1;
+}
+setColCount();
+
 // Добавить заметку
 function addNote(title = 'Заголовок', text = 'Введите текст заметки', date = currentDate(), favor = false, background, color) {
     let newNote = document.createElement('div');
@@ -233,7 +242,8 @@ function loadNotes() {
 
 // Добавить Скрытие иконок заметки и появление либо активных, 
 // либо при нажатии на стрелочку выезжают все
-
+// Придумать что делать в случае установки черного фона заметок
+// Добавить иконкам белую рамку? что то с границей или с фоном?
 //Может удалить радиальный градиент?
 // 
 // 
