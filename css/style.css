@@ -27,10 +27,11 @@ html {
 
 body {
   font-size: 1.6rem;
-  margin-right: 3rem; }
+  margin-right: 1rem; 
+  text-align: center;}
 
 .work-area {
-  column-gap: 2em; }
+  column-gap: 1em; }
 
 #r1 {
   position: absolute;
@@ -43,7 +44,7 @@ body {
   width: 100%;
   background-color: --bs-info;
   border-radius: 20px;
-  margin: 10px; }
+  margin: 10px 10px 10px 0px; }
 
 .note__footer {
   display: flex;
@@ -83,32 +84,43 @@ body {
   .note__delete {
     height: 27px;
     width: 27px;
+    margin-right:0;
+   
+  }
+  h2{
+    width: 90%;
   }
 @media (max-width: 1179px) {
   .img {
     width: 16px;
     height: 16px; }
     .note__delete {
+      
       height: 20px;
       width: 20px;
     }
   html {
     font-size: 50%; } }
-@media (max-width: 660px) {
+  body {
+
+  }
+@media (max-width: 768px) {
   .word-area {
     column-count: 1; }
 
   body {
     font-size: 1.2rem;
-    text-align: center; }
+     
+    margin-right: 1rem;}
+  .note__text {
+    font-size:1.8rem;
+  }
 
   .setting__btn {
     padding-top: 5px;
     height: 10px; } 
   .note__delete {
-    position: relative;
-    /* left:-2px;
-    top:3px; */
+    
     height: 20px;
     width: 20px;
   }
@@ -144,13 +156,14 @@ body {
   position: relative; }
 
 h1 {
-  text-align: center; }
+  text-align: center;
+}
 
 h2 {
   padding-left: 1.4rem;
   padding-right: 0;
   word-break: break-word;
-  width: 95%;
+  width: 97.5%;
   margin-bottom: 0px; }
 
 .settings {
