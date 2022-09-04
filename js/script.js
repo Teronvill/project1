@@ -141,13 +141,14 @@ function notSaved(el, text) {
 }
 //Установка кол-ва колонок 
 function setColCount(){
+    let workArea=document.querySelector('.work-area');
     if (window.screen.width<769)
     {
         btns[3].classList.add('hide');
+        workArea.style.columnCount=1;
     }
-    else if (document.querySelector('.work-area').style.columnCount=='')
-    {document.querySelector('.work-area').style.columnCount=3}
-    else document.querySelector('.work-area').style.columnCount=1;
+    else if (workArea.style.columnCount=='')
+    {workArea.style.columnCount=3};
 }
 setColCount();
 
