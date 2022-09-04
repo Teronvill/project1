@@ -8,6 +8,7 @@ btns[0].addEventListener('click', () => {
     addNote();
 });
 btns[1].addEventListener('click', () => {
+    let elems=document.querySelectorAll('.note');
     for (let elem of elems) {
         elem.style.background = setRandColor(getRandNum(1, 4), getRandNum(1, 3), getRandNum(1, 359));
     }
