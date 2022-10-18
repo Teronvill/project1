@@ -27,8 +27,8 @@ html {
 
 body {
   font-size: 1.6rem;
-  margin-right: 1rem; 
-  text-align: center;}
+  margin-right: 2rem;
+  text-align: center; }
 
 .work-area {
   column-gap: 1em; }
@@ -42,7 +42,6 @@ body {
   background-color: #eee;
   display: inline-block;
   width: 100%;
-  background-color: --bs-info;
   border-radius: 20px;
   margin: 10px 10px 10px 0px; }
 
@@ -81,55 +80,48 @@ body {
   height: 24px;
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out; }
-  .note__delete {
-    height: 27px;
-    width: 27px;
-    margin-right:0;
-   
-  }
-  h2{
-    width: 90%;
-  }
+
+.note__delete {
+  height: 27px;
+  width: 27px;
+  margin-right: 0; }
+
+h2 {
+  width: 90%; }
+
 @media (max-width: 1179px) {
   .img {
     width: 16px;
     height: 16px; }
-    .note__delete {
-      
-      height: 20px;
-      width: 20px;
-    }
+
+  .note__delete {
+    height: 20px;
+    width: 20px; }
+
   html {
     font-size: 50%; } }
-  body {
-
-  }
 @media (max-width: 768px) {
   .word-area {
     column-count: 1; }
 
   body {
     font-size: 1.2rem;
-     
-    margin-right: 1rem;}
+    margin-right: 1rem; }
+
   .note__text {
-    font-size:1.8rem;
-  }
+    font-size: 1.8rem; }
 
   .setting__btn {
     padding-top: 5px;
-    height: 10px; } 
+    height: 10px; }
+
   .note__delete {
-    
     height: 20px;
-    width: 20px;
-  }
-  }
+    width: 20px; } }
 .note__delete {
   background-image: url("../img/cross-circle.svg");
-  position: relative;
-  left:-px;
-}
+  position: relative; }
+
 .note__favorit {
   background-image: url("../img/star.svg"); }
 
@@ -156,24 +148,18 @@ body {
   position: relative; }
 
 h1 {
-  text-align: center;
-}
+  text-align: center; }
 
 h2 {
   padding-left: 1.4rem;
   padding-right: 0;
   word-break: break-word;
-  width: 97.5%;
+  width: 95%;
   margin-bottom: 0px; }
 
 .settings {
   display: flex;
   justify-content: center; }
-
-.ball {
-  height: 150px;
-  width: 150px;
-  background-color: red; }
 
 .hide {
   display: none; }

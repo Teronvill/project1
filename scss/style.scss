@@ -29,20 +29,12 @@ html {
 }
 body {
    font-size: 1.6rem;
-   margin-right: 3rem;
+   margin-right: 2rem;
+   text-align: center;
    
 }
 .work-area {
-   // display: flex;
-   // // flex-direction: column;
-   // align-items: flex-start;
-   // flex-wrap: wrap;
-//    display: grid;
-//   gap: 10px;
-//   grid-template-columns: 1fr [box-start] 1fr 1fr [box-end] 1fr;
-//   grid-template-rows: masonry;
-column-gap: 2em;
-   
+column-gap: 1em;
 }
 #r1 {
    position: absolute;
@@ -53,9 +45,8 @@ column-gap: 2em;
    background-color: #eee;
    display: inline-block;
    width: 100%;
-   background-color:--bs-info;
    border-radius: 20px;
-   margin: 10px;  
+   margin: 10px 10px 10px 0px;   
 }
 .note__footer {
    display:flex;
@@ -73,7 +64,7 @@ column-gap: 2em;
 }
 .note__title{
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
 }
 .note__btns {
    display: flex;
@@ -94,29 +85,51 @@ column-gap: 2em;
    -webkit-transition: .3s ease-in-out;
    transition: .3s ease-in-out;
 }
+.note__delete {
+   height: 27px;
+   width: 27px;
+   margin-right:0;
+  
+ }
+ h2{
+   width: 90%;
+ }
 @media (max-width: 1179px){
    .img {
       width: 16px; 
    height: 16px;
    }
+   .note__delete {
+      height: 20px;
+      width: 20px;
+    }
    html{
       font-size: 50%}
 }
-@media (max-width: 660px){
+@media (max-width: 768px) {
    .word-area {
-      column-count: 1;
-   }
+     column-count: 1; }
+ 
    body {
-      font-size:1.2rem ;
-      text-align: center;
+     font-size: 1.2rem;
+      
+     margin-right: 1rem;}
+   .note__text {
+     font-size:1.8rem;
    }
-   .setting__btn{
-      padding-top: 5px;
-      height: 10px;
+ 
+   .setting__btn {
+     padding-top: 5px;
+     height: 10px; } 
+   .note__delete {
+     
+     height: 20px;
+     width: 20px;
    }
-}
+   }
 .note__delete{
    background-image: url('../img/cross-circle.svg'); 
+   position: relative;
 }
 
 .note__favorit {
@@ -161,13 +174,6 @@ h2{
    
 }
 
-
-.ball {
-   height: 150px;
-   width: 150px;
-   background-color:red;
-   
-}
 .colorPicker{
 // position: absolute;
 // left: 100rem;
@@ -177,3 +183,6 @@ h2{
 .hide{
    display: none;
 }
+
+
+
