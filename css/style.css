@@ -164,4 +164,17 @@ h2 {
 .hide {
   display: none; }
 
+  .note__text:focus, h2:focus{
+    font-size: 1.05em;
+    border-bottom: black solid 1px;
+  }
+  h2:focus{
+    font-size: 1.7em;
+  }
+  p,h1,h2, .note__text{
+    transition: 0.2s;
+  }
+  *:focus{
+    outline: none;
+  }
 /*# sourceMappingURL=style.css.map */
